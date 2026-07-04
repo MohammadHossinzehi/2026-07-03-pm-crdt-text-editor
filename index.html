@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CRDT Collaborative Text Editor Demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; }
+    .clients { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .client h2 { font-size: 1rem; margin-bottom: 0.25rem; }
+    textarea { width: 100%; height: 140px; font-family: monospace; font-size: 0.95rem; box-sizing: border-box; }
+    .controls { margin: 1rem 0; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    #log { height: 220px; overflow-y: auto; background: #111; color: #0f0; font-family: monospace;
+           font-size: 0.8rem; padding: 0.5rem; border-radius: 4px; }
+    button { padding: 0.4rem 0.8rem; cursor: pointer; }
+    label { font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>CRDT Collaborative Text Editor</h1>
+  <p>
+    Three independent replicas (site 1, 2, 3), each backed by its own
+    <code>RGADocument</code>, connected through a simulated network that
+    delivers messages with random delay (and can be fully partitioned).
+    Type in any box, or click "Simulate network partition", type in
+    multiple boxes while disconnected, then heal the partition - all
+    replicas converge to the same text no matter what order edits arrive in.
+  </p>
+
+  <div class="clients">
+    <div class="client">
+      <h2>Site 1</h2>
+      <textarea id="editor1" placeholder="Type here..."></textarea>
+    </div>
+    <div class="client">
+      <h2>Site 2</h2>
+      <textarea id="editor2" placeholder="Type here..."></textarea>
+    </div>
+    <div class="client">
+      <h2>Site 3</h2>
+      <textarea id="editor3" placeholder="Type here..."></textarea>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>Min delay (ms) <input id="minDelay" type="number" value="100" min="0" style="width:70px" /></label>
+    <label>Max delay (ms) <input id="maxDelay" type="number" value="1500" min="0" style="width:70px" /></label>
+    <button id="partitionBtn">Simulate network partition</button>
+    <button id="resetBtn">Reset demo</button>
+  </div>
+
+  <h2>Network log</h2>
+  <div id="log"></div>
+
+  <script type="module" src="dist/src/demo.js"></script>
+</body>
+</html>

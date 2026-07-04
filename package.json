@@ -1,0 +1,16 @@
+{
+  "name": "crdt-text-editor",
+  "version": "1.0.0",
+  "description": "A from-scratch Logoot-style sequence CRDT for collaborative plain-text editing, with a live multi-replica browser demo.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "demo": "npm run build && node serve.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.14.0"
+  }
+}
